@@ -3,12 +3,13 @@ class CreateBookSalesSummary < ActiveRecord::Migration
     connection.execute <<-SQL
       CREATE MATERIALIZED VIEW book_sales_summary AS
               SELECT  books.name as name,
+                      books.id as id,
                       books.author_id as author_id,
                       sum((sales.number * books.price)) as total_sales
               FROM sales
               LEFT JOIN books ON sales.book_id = books.id
-              GROUP BY sales.book_id, books.name, books.author_id;
-      CREATE INDEX ON book_sales_summary (author_id);
+              GROUP BY sales.book_id, books.name, books.author_id, books.id;
+      CREATE INDEX ON book_sales_summary (id);
     SQL
   end
 
