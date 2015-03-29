@@ -5,7 +5,7 @@ class BookSalesSummary < ActiveRecord::Base
   self.primary_key = :id
 
   def self.repopulate
-    connection.execute("REFRESH MATERIALIZED VIEW #{book_sales_summary}")
+    connection.execute("REFRESH MATERIALIZED VIEW #{table_name}")
   end
 
   def readonly
