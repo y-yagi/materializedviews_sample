@@ -1,3 +1,17 @@
+# ## Schema Information
+#
+# Table name: `book_sales_summary`
+#
+# ### Columns
+#
+# Name               | Type               | Attributes
+# ------------------ | ------------------ | ---------------------------
+# **`name`**         | `string`           |
+# **`id`**           | `integer`          | `primary key`
+# **`author_id`**    | `integer`          |
+# **`total_sales`**  | `integer`          |
+#
+
 class BookSalesSummary < ActiveRecord::Base
   belongs_to :author
 
