@@ -5,16 +5,20 @@ unless Author.exists?
 end
 
 unless Book.exists?
-  1000.times.each do |i|
-    Book.create!(name: "book_#{i}", price: rand(100) * 100, author: Author.find((1..20).to_a.sample))
+  author_ids = Author.pluck(:id)
+  10000.times.each do |i|
+    Book.create!(name: "book_#{i}", price: rand(100) * 100,
+      author: Author.find(author_ids.sample)
+    )
   end
 end
 
 unless Sale.exists?
-  10000.times.each do |_|
+  book_ids = Book.pluck(:id)
+  100000.times.each do |_|
     Sale.create!(
-      number: rand(2) + 1, date: (1..7).to_a.sample.days.ago,
-      book: Book.find((1..100).to_a.sample)
+      number: rand(2) + 1, date: (1..30).to_a.sample.days.ago,
+      book: Book.find(book_ids.sample)
     )
   end
 end
