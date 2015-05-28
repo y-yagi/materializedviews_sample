@@ -1,6 +1,6 @@
 # ## Schema Information
 #
-# Table name: `book_sales_summary`
+# Table name: `book_sale_summaries`
 #
 # ### Columns
 #
@@ -12,17 +12,16 @@
 # **`total_sales`**  | `integer`          |
 #
 
-class BookSalesSummary < ActiveRecord::Base
+class BookSaleSummary < ActiveRecord::Base
   belongs_to :author
 
-  self.table_name = 'book_sales_summary'
   self.primary_key = :id
 
   def self.repopulate
-    connection.execute("REFRESH MATERIALIZED VIEW #{table_name}")
+    connection.execute("REFRESH MATERIALIZED VIEW CONCURRENTLY #{table_name}")
   end
 
-  def readonly
+  def readonly?
     true
   end
 end

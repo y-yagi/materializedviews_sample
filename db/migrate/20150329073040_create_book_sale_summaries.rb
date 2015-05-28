@@ -1,7 +1,7 @@
-class CreateBookSalesSummary < ActiveRecord::Migration
+class CreateBookSaleSummaries < ActiveRecord::Migration
   def up
     connection.execute <<-SQL
-      CREATE MATERIALIZED VIEW book_sales_summary AS
+      CREATE MATERIALIZED VIEW book_sale_summaries AS
               SELECT  books.name as name,
                       books.id as id,
                       books.author_id as author_id,
@@ -9,11 +9,11 @@ class CreateBookSalesSummary < ActiveRecord::Migration
               FROM sales
               LEFT JOIN books ON sales.book_id = books.id
               GROUP BY sales.book_id, books.name, books.author_id, books.id;
-      CREATE INDEX ON book_sales_summary (id);
+      CREATE UNIQUE INDEX ON book_sale_summaries (id);
     SQL
   end
 
   def down
-    connection.execute 'DROP MATERIALIZED VIEW IF EXISTS book_sales_summary'
+    connection.execute 'DROP MATERIALIZED VIEW IF EXISTS book_sale_summaries'
   end
 end
