@@ -1,6 +1,6 @@
 class CreateBookSaleSummaries < ActiveRecord::Migration
   def up
-    connection.execute <<-SQL
+    execute <<-SQL
       CREATE MATERIALIZED VIEW book_sale_summaries AS
               SELECT  books.name as name,
                       books.id as id,
@@ -14,6 +14,6 @@ class CreateBookSaleSummaries < ActiveRecord::Migration
   end
 
   def down
-    connection.execute 'DROP MATERIALIZED VIEW IF EXISTS book_sale_summaries'
+    execute 'DROP MATERIALIZED VIEW IF EXISTS book_sale_summaries'
   end
 end
